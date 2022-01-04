@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/style/size_config.dart';
 
 class Defaultbutton extends StatelessWidget {
   const Defaultbutton({

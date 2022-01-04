@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/logic/home_controller.dart';
-import 'package:mybim/pages/custum_widget/card_timer.dart';
-import 'package:mybim/pages/custum_widget/defaultbutton.dart';
-import 'package:mybim/pages/dialog/alertdialog_widget.dart';
-import 'package:mybim/style/size_config.dart';
-import 'package:mybim/style/theme.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/logic/home_controller.dart';
+import 'package:Basme/pages/custum_widget/card_timer.dart';
+import 'package:Basme/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/pages/dialog/alertdialog_widget.dart';
+import 'package:Basme/style/size_config.dart';
+import 'package:Basme/style/theme.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.userModel}) : super(key: key);
@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     return GetBuilder<HomeController>(
         init: HomeController(),
         builder: (homeController) {
-          // homeController.getAtendence();
           return Scaffold(
             bottomNavigationBar: Container(
               padding: const EdgeInsetsDirectional.all(20),
@@ -75,53 +74,6 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // Padding(
-                    //   padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-                    //   child: Row(
-                    //     children: [
-                    //       SvgPicture.asset(
-                    //         'assets/icons/profil-icon.svg',
-                    //         color: Theme.of(context).primaryColor,
-                    //         width: getProportionateScreenWidth(50),
-                    //       ),
-                    //       Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           Text.rich(
-                    //             TextSpan(
-                    //               text: 'Bienvenue',
-                    //               style: TextStyle(
-                    //                   color: Colors.black45,
-                    //                   fontSize:
-                    //                       getProportionateScreenWidth(12)),
-                    //             ),
-                    //           ),
-                    //           Text(
-                    //             ((widget.userModel.name!.length <= 18)
-                    //                     ? widget.userModel.name
-                    //                     : '${widget.userModel.name}'
-                    //                             .substring(0, 15) +
-                    //                         '.. ') ??
-                    //                 '---------',
-                    //             style: TextStyle(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 fontWeight: FontWeight.w500,
-                    //                 fontSize: getProportionateScreenWidth(15)),
-                    //           )
-                    //         ],
-                    //       ),
-                    //       const Expanded(child: SizedBox()),
-                    //       InkWell(
-                    //           onTap: () =>
-                    //               homeController.logout(user: widget.userModel),
-                    //           child: const Icon(
-                    //             Icons.logout_outlined,
-                    //             color: Colors.black45,
-                    //           )),
-                    //     ],
-                    //   ),
-                    // ),
-                    // const Expanded(child: SizedBox()),
                     SizedBox(
                       height: getProportionateScreenHeight(20),
                     ),
@@ -151,10 +103,11 @@ class _HomePageState extends State<HomePage> {
                       child: Stack(
                         children: [
                           Positioned(
-                            left: getProportionateScreenWidth(5),
+                            left: getProportionateScreenWidth(-10),
+                            top: getProportionateScreenWidth(2),
                             child: Container(
-                              width: getProportionateScreenWidth(40),
-                              height: getProportionateScreenWidth(40),
+                              width: getProportionateScreenWidth(90),
+                              height: getProportionateScreenWidth(90),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(
@@ -201,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   SvgPicture.asset(
                                     'assets/icons/profil-icon.svg',
-                                    color: Theme.of(context).primaryColor,
+                                    color: Colors.black,
                                     width: getProportionateScreenWidth(40),
                                   ),
                                   Column(
@@ -217,17 +170,15 @@ class _HomePageState extends State<HomePage> {
                                                     '.. ') ??
                                             '---------',
                                         style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.w900,
                                             fontSize:
                                                 getProportionateScreenWidth(
                                                     15)),
                                       ),
                                       Text.rich(
                                         TextSpan(
-                                          text:
-                                              '${widget.userModel.phone ?? ''}',
+                                          text: widget.userModel.phone ?? '',
                                           style: TextStyle(
                                               color: Colors.black45,
                                               fontSize:
@@ -349,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                       height: 20,
                     ),
                     CircularCountDownTimer(
-                      duration: widget.userModel.timeWorking ?? (8 * 60 * 60),
+                      duration: homeController.timeCircler,
 
                       controller: homeController.circularcontroller,
 
@@ -401,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                       isTimerTextShown: true,
 
                       // Handles the timer start.
-                      // autoStart: true,
+                      autoStart: true,
 
                       // This Callback will execute when the Countdown Starts.
                       onStart: () {
@@ -409,7 +360,6 @@ class _HomePageState extends State<HomePage> {
 
                         print('Countdown Started');
                       },
-                      autoStart: false,
 
                       // This Callback will execute when the Countdown Ends.
                       onComplete: () {

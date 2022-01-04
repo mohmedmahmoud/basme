@@ -1,14 +1,16 @@
+import 'package:Basme/style/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import 'package:mybim/logic/login_controller.dart';
-import 'package:mybim/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/logic/login_controller.dart';
+import 'package:Basme/pages/custum_widget/defaultbutton.dart';
 
-import 'package:mybim/style/input_decoration.dart';
-import 'package:mybim/style/size_config.dart';
-import 'package:mybim/style/theme.dart';
+import 'package:Basme/style/input_decoration.dart';
+
+import 'package:Basme/style/theme.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Login extends StatefulWidget {
@@ -56,7 +58,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Theme.of(context).backgroundColor,
           body: SlidingUpPanel(
             controller: _panelController,
-            maxHeight: getProportionateScreenHeight(330),
+            maxHeight: getProportionateScreenHeight(360),
             minHeight: 60,
             parallaxEnabled: false,
             parallaxOffset: 1,
@@ -353,7 +355,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: getProportionateScreenHeight(20),
+                  height: getProportionateScreenHeight(40),
                 ),
                 Defaultbutton(
                   text: 'Connexion',
@@ -387,39 +389,52 @@ class _body extends StatelessWidget {
               fit: BoxFit.cover,
               image: AssetImage('assets/images/backgroud_1155.jpg'))),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Colors.white.withOpacity(0.9),
+                  Colors.white.withOpacity(0.7),
+                  Colors.white.withOpacity(0.6),
+                  Colors.white.withOpacity(0.5),
+                  Colors.white.withOpacity(0.2),
+                  Colors.white.withOpacity(0.05),
+                  Colors.white.withOpacity(0.015),
+                  Colors.white.withOpacity(0.001),
+                ],
+              ),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: getProportionateScreenHeight(60),
+                ),
+                SvgPicture.asset('assets/icons/logo.svg',
+                    height: getProportionateScreenHeight(125)),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  decoration: BoxDecoration(
+                      color: const Color(0xff00C569),
+                      // border: Border.all(color: Colors.white60, width: 8),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Text(
+                    'BASME',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: getProportionateScreenHeight(14),
+                        fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ],
+            ),
           ),
-          // 1155
-
-          // Container(
-          //   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-          //   decoration: BoxDecoration(
-          //       color: Colors.green.withOpacity(0.7),
-          //       // border: Border.all(color: Colors.white60, width: 8),
-          //       borderRadius: BorderRadius.circular(10)),
-          //   child: Row(
-          //     mainAxisSize: MainAxisSize.min,
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     // ignore: prefer_const_literals_to_create_immutables
-          //     children: [
-          //       const Icon(
-          //         Icons.phone,
-          //         color: Colors.white,
-          //         size: 45,
-          //       ),
-          //       const Text(
-          //         '1155',
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 35,
-          //             fontWeight: FontWeight.w900),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

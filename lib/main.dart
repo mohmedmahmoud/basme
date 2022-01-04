@@ -1,5 +1,8 @@
 // import 'package:device_preview/device_preview.dart' as dv;
 
+import 'package:Basme/logic/binding.dart';
+import 'package:Basme/pages/splash/splash_load.dart';
+import 'package:Basme/style/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +11,6 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mybim/logic/binding.dart';
-
-import 'package:mybim/pages/splash/splash_load.dart';
-
-import 'package:mybim/style/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

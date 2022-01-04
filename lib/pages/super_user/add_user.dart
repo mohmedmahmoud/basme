@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/logic/admin_controller.dart';
-import 'package:mybim/logic/login_controller.dart';
-import 'package:mybim/pages/custum_widget/defaultbutton.dart';
-import 'package:mybim/style/input_decoration.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/logic/admin_controller.dart';
+import 'package:Basme/logic/login_controller.dart';
+import 'package:Basme/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/style/input_decoration.dart';
+import 'package:Basme/style/size_config.dart';
 
 class AddUserView extends StatefulWidget {
   const AddUserView({Key? key, this.userModel}) : super(key: key);
@@ -15,8 +15,13 @@ class AddUserView extends StatefulWidget {
 }
 
 class _AddUserViewState extends State<AddUserView> {
-  String? _role;
-  final List<String> _roles = ['Chauffeur', 'Medecine', 'Opérateur'];
+  String? _role = 'Opérateur';
+  final List<String> _roles = [
+    'Chauffeur',
+    'Médecin',
+    'Opérateur',
+    'Infirmier'
+  ];
   AdminController adminController = Get.find();
 
   @override
@@ -109,7 +114,7 @@ class _AddUserViewState extends State<AddUserView> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 30),
                             ),
-                            Text('C’est rapide et facile.'),
+                            const Text('C’est rapide et facile.'),
                             SizedBox(
                               height: getProportionateScreenHeight(50),
                             ),
@@ -160,24 +165,82 @@ class _AddUserViewState extends State<AddUserView> {
                               ),
                             ),
                             SizedBox(
+                              height: getProportionateScreenHeight(20),
+                            ),
+                            GetBuilder<AdminController>(
+                              init: AdminController(),
+                              initState: (_) {},
+                              builder: (_) {
+                                return InkWell(
+                                  onTap: () =>
+                                      adminController.gettimeWorking(context),
+                                  child: Container(
+                                    alignment: Alignment.topRight,
+                                    height: 50,
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[50],
+                                        borderRadius: BorderRadius.circular(
+                                            getProportionateScreenWidth(8)),
+                                        // color: Colors.grey[200],
+                                        border: Border.all(
+                                            color: Colors.green.shade50,
+                                            width: 1)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today_outlined,
+                                          size: 20,
+                                          color: (adminController.timeWorking ==
+                                                  null)
+                                              ? Colors.green.shade50
+                                              : Colors.black45,
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              getProportionateScreenWidth(10),
+                                        ),
+                                        Text(
+                                          (adminController.timeWorking == null)
+                                              ? "Choisissez le temps de travail"
+                                              : '${adminController.timeWorking!.hour}h ${adminController.timeWorking!.minute}min',
+                                          style: TextStyle(
+                                            fontSize:
+                                                getProportionateScreenHeight(
+                                                    14),
+                                            color:
+                                                (adminController.timeWorking ==
+                                                        null)
+                                                    ? Colors.grey[400]
+                                                    : Colors.black45,
+
+                                            // fontSize:
+                                            //     (dateArriver == null) ? width * 0.035 : width * 0.045,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            SizedBox(
                               height: getProportionateScreenHeight(40),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Defaultbutton(
-                                  text: "Créer ",
-                                  width: 150,
-                                  haveIcon: true,
-                                  onTap: () {
-                                    adminController.addUser(
-                                        role: _role!,
-                                        userModel: widget.userModel!);
-                                  },
-                                  color: Theme.of(context).primaryColor,
-                                  textcolor: Colors.white,
-                                )
-                              ],
+                            Defaultbutton(
+                              text: "Créer ",
+                              // width: 150,
+                              haveIcon: true,
+                              onTap: () {
+                                adminController.addUser(
+                                    role: _role!, userModel: widget.userModel!);
+                              },
+                              color: Theme.of(context).primaryColor,
+                              textcolor: Colors.white,
                             ),
                           ],
                         ),

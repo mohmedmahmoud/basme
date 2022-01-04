@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/logic/login_controller.dart';
-import 'package:mybim/pages/custum_widget/defaultbutton.dart';
-import 'package:mybim/style/input_decoration.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/logic/login_controller.dart';
+import 'package:Basme/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/style/input_decoration.dart';
+import 'package:Basme/style/size_config.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key, this.userModel}) : super(key: key);
@@ -263,6 +263,8 @@ class _RegisterState extends State<Register> {
                                                     .trim(),
                                                 role: widget.userModel!.role,
                                                 id: widget.userModel!.id,
+                                                nameAgency: widget
+                                                    .userModel!.nameAgency,
                                                 idAgency:
                                                     widget.userModel!.idAgency,
                                                 phoneId:

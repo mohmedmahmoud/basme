@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/style/size_config.dart';
 
 class CartTimer extends StatelessWidget {
   const CartTimer({

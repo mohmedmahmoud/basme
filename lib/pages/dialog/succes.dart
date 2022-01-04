@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/pages/custum_widget/defaultbutton.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 void dialogSucces({required String idUser}) => Get.defaultDialog(
@@ -11,7 +11,7 @@ void dialogSucces({required String idUser}) => Get.defaultDialog(
         onWillPop: () async => true,
         title: '',
         middleText: '',
-        contentPadding: EdgeInsets.all(20),
+        contentPadding: const EdgeInsets.all(20),
         titleStyle: Get.textTheme.bodyText1,
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -54,9 +54,9 @@ void dialogSucces({required String idUser}) => Get.defaultDialog(
                   size: 20,
                   color: Colors.black,
                 ),
-                Text(
+                SelectableText(
                   idUser,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                 )
               ],
             ),

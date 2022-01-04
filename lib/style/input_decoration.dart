@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/style/size_config.dart';
 
 InputDecoration inputDecoration() {
   return InputDecoration(
@@ -31,15 +31,15 @@ InputDecoration inputDecoration() {
     // ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(
-        color: Colors.grey,
+      borderSide: BorderSide(
+        color: Colors.green.shade700,
       ),
     ),
 
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(getProportionateScreenWidth(10)),
-      borderSide: const BorderSide(
-        color: Colors.grey,
+      borderSide: BorderSide(
+        color: Colors.green.shade50,
       ),
     ),
   );

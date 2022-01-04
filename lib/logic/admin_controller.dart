@@ -1,20 +1,53 @@
+import 'package:Basme/pages/dialog/hour_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/attendance.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/data/service/firestore_atendance.dart';
-import 'package:mybim/data/service/firestore_user.dart';
-import 'package:mybim/data/service/plus/local_storage.dart';
-import 'package:mybim/pages/dialog/error.dart';
-import 'package:mybim/pages/dialog/lodding.dart';
-import 'package:mybim/pages/dialog/succes.dart';
-import 'package:mybim/pages/login/login.dart';
+import 'package:Basme/data/model/attendance.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/data/service/firestore_atendance.dart';
+import 'package:Basme/data/service/firestore_user.dart';
+import 'package:Basme/data/service/plus/local_storage.dart';
+import 'package:Basme/pages/dialog/error.dart';
+import 'package:Basme/pages/dialog/lodding.dart';
+import 'package:Basme/pages/dialog/succes.dart';
+import 'package:Basme/pages/login/login.dart';
 
 class AdminController extends GetxController {
   // get attendances
   List<Attendance>? attendances;
   List<Attendance> attendances2 = [];
   TextEditingController searchController = TextEditingController();
+  TimeOfDay? timeWorking = TimeOfDay(hour: 08, minute: 00);
+  int? timeWorkingInSeconds = 28000;
+  final List<String> _roles = [
+    'tout',
+    'Chauffeur',
+    'Médecin',
+    'Opérateur',
+    'Infirmier'
+  ];
+  get roles => _roles;
+  int role = 0;
+
+  // filter search
+  filterAttendances({required String query}) {
+    print(query);
+    attendances = (query == 'tout')
+        ? attendances2
+        : attendances2.where((attendance) => attendance.role == query).toList();
+
+    update();
+  }
+
+  gettimeWorking(BuildContext context) async {
+    timeWorking = await showHour(context);
+    if (timeWorking != null) {
+      timeWorkingInSeconds =
+          timeWorking!.hour * 3600 + timeWorking!.minute * 60;
+      print(timeWorkingInSeconds);
+    }
+    update();
+  }
+
   Future<List<Attendance>?> getAttendances({required String idAgency}) async {
     var values = await HomeFireStore().getAttendanceAgency(idAgency: idAgency);
     List<Attendance> newAttendances = [];
@@ -23,6 +56,7 @@ class AdminController extends GetxController {
     }
     attendances = newAttendances;
     attendances2 = newAttendances;
+    update();
     return attendances;
   }
 
@@ -46,6 +80,7 @@ class AdminController extends GetxController {
       nameAgency: userModel.nameAgency,
       latitudeAgency: userModel.latitudeAgency,
       longitudeAgency: userModel.longitudeAgency,
+      timeWorking: timeWorkingInSeconds,
     );
     String idUser =
         await FireStoreUser().addUser(user: user.toJson()).catchError((e) {

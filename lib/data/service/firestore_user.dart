@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mybim/data/model/user_model.dart';
+import 'package:Basme/data/model/user_model.dart';
 
 class FireStoreUser {
   final CollectionReference _userCollectionRef =

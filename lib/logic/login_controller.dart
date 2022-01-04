@@ -4,16 +4,16 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/data/service/firestore_user.dart';
-import 'package:mybim/data/service/plus/divice_info.dart';
-import 'package:mybim/data/service/plus/local_storage.dart';
-import 'package:mybim/pages/dialog/error.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/data/service/firestore_user.dart';
+import 'package:Basme/data/service/plus/divice_info.dart';
+import 'package:Basme/data/service/plus/local_storage.dart';
+import 'package:Basme/pages/dialog/error.dart';
 
-import 'package:mybim/pages/dialog/lodding.dart';
-import 'package:mybim/pages/homepage/homepage.dart';
-import 'package:mybim/pages/login/register.dart';
-import 'package:mybim/pages/super_user/lists_attendances.dart';
+import 'package:Basme/pages/dialog/lodding.dart';
+import 'package:Basme/pages/homepage/homepage.dart';
+import 'package:Basme/pages/login/register.dart';
+import 'package:Basme/pages/super_user/lists_attendances.dart';
 
 class LoginController extends GetxController {
   bool isSignUp = true;

@@ -1,4 +1,4 @@
-name: mybim
+name: Basme
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -52,7 +52,7 @@ dependencies:
 
   # firebase
   firebase_core: ^1.10.5
-  firebase_auth: ^3.3.4
+
   cloud_firestore: ^3.1.5
   
   # lodding
@@ -97,6 +97,7 @@ dependencies:
 
   
 dev_dependencies:
+  flutter_native_splash:
   flutter_test:
     sdk: flutter
 

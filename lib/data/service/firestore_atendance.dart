@@ -14,12 +14,13 @@ class HomeFireStore {
       {required String idAgency}) async {
     print('------------attendances-----------');
     return await _attendanceCollection
-        .orderBy(
-          "clockIn",
-          descending: true,
-        )
+        // .orderBy(
+        //   "clockIn",
+        //   descending: true,
+        // )
+
+        .where('idAgency', isEqualTo: idAgency)
         .limit(50)
-        // .where('idAgency', isEqualTo: idAgency)
         .get();
     // .catchError((e) => print(e));
   }

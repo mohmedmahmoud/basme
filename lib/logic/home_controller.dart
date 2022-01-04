@@ -4,15 +4,15 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
-import 'package:mybim/data/model/attendance.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/data/service/firestore_atendance.dart';
-import 'package:mybim/data/service/plus/local_storage.dart';
-import 'package:mybim/data/service/plus/location.dart';
-import 'package:mybim/pages/dialog/error.dart';
-import 'package:mybim/pages/dialog/lodding.dart';
-import 'package:mybim/pages/dialog/succes.dart';
-import 'package:mybim/pages/login/login.dart';
+import 'package:Basme/data/model/attendance.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/data/service/firestore_atendance.dart';
+import 'package:Basme/data/service/plus/local_storage.dart';
+import 'package:Basme/data/service/plus/location.dart';
+import 'package:Basme/pages/dialog/error.dart';
+import 'package:Basme/pages/dialog/lodding.dart';
+import 'package:Basme/pages/dialog/succes.dart';
+import 'package:Basme/pages/login/login.dart';
 import 'package:ntp/ntp.dart';
 
 class HomeController extends GetxController {
@@ -30,6 +30,7 @@ class HomeController extends GetxController {
   //location
   LocationData? _locationData;
   LocationData? get locationData => _locationData;
+  int timeCircler = 8 * 60 * 60;
 
   // init state
   @override
@@ -41,7 +42,8 @@ class HomeController extends GetxController {
   void logout({required User user}) async {
     if (_statusApp != 'clockIn') {
       loddingDialog();
-      await LocalStorage().removeUser();
+      LocalStorage().removeUser();
+      LocalStorage().deleteIdAttendance();
 
       Get.offAll(() => Login());
     } else {
@@ -52,7 +54,7 @@ class HomeController extends GetxController {
 
   // ---------------------------get attendance ----------
 
-  void getAtendence() async {
+  void getAtendence({int? timeworking}) async {
     // loddingDialog(isPop: false);
     String? idAttendance = await LocalStorage().getIdAttendance();
     if (idAttendance != null) {
@@ -64,8 +66,13 @@ class HomeController extends GetxController {
         if (atendance.exists) {
           print('atendance ${atendance.data()}');
           _attendance = Attendance.fromJson(atendance.data());
+
           if (_attendance.status ?? false) {
             _statusApp = 'clockIn';
+            // _attendance.duration = DateTime.now().difference(_attendance.clockIn?? DateTime.now()).inSeconds;
+            Duration timeWorking = DateTime.now()
+                .difference(_attendance.clockIn ?? DateTime.now());
+            timeCircler = timeCircler - timeWorking.inSeconds;
           } else {
             _statusApp = 'clockOut';
           }
@@ -102,12 +109,14 @@ class HomeController extends GetxController {
     print(inWorking);
     if (inWorking) {
       DateTime startDate = await NTP.now();
+      timeCircler = user.timeWorking ?? 8 * 60 * 60;
 
       _attendance = Attendance(
         nameUser: user.name,
         phoneUser: user.phone,
         idAgency: user.idAgency,
         idUser: user.id,
+        role: user.role,
         status: true,
         clockIn: startDate,
         positionClockIn:
@@ -178,6 +187,7 @@ class HomeController extends GetxController {
 
   updateAttendance({required Attendance attendance}) async {
     String? id = await LocalStorage().getIdAttendance();
+
     await HomeFireStore()
         .updateAttendance(
             attendance: attendance.toJson(), idAttendance: id ?? '')

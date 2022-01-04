@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:mybim/data/model/attendance.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/logic/admin_controller.dart';
-import 'package:mybim/pages/custum_widget/empty_content.dart';
-import 'package:mybim/pages/custum_widget/loddingWidget.dart';
-import 'package:mybim/pages/dialog/alertdialog_widget.dart';
-import 'package:mybim/pages/super_user/add_user.dart';
-import 'package:mybim/style/input_decoration.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/data/model/attendance.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/logic/admin_controller.dart';
+import 'package:Basme/pages/custum_widget/empty_content.dart';
+import 'package:Basme/pages/custum_widget/loddingWidget.dart';
+import 'package:Basme/pages/dialog/alertdialog_widget.dart';
+import 'package:Basme/pages/super_user/add_user.dart';
+import 'package:Basme/style/input_decoration.dart';
+import 'package:Basme/style/size_config.dart';
 
 class ListUsersView extends StatelessWidget {
   ListUsersView({Key? key, required this.userModel}) : super(key: key);
@@ -44,30 +44,33 @@ class ListUsersView extends StatelessWidget {
               builder: (context, AsyncSnapshot snapshot) {
                 return GetBuilder<AdminController>(
                   init: AdminController(),
-                  builder: (adminController) => SingleChildScrollView(
-                    child: Column(
+                  builder: (adminController) => RefreshIndicator(
+                    onRefresh: () async {
+                      adminController.getAttendances(
+                          idAgency: userModel.idAgency ?? '');
+                    },
+                    child: ListView(
                       children: [
                         SizedBox(
                           height: getProportionateScreenHeight(20),
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    offset: const Offset(0, 4),
-                                    blurRadius: 10,
-                                  ),
-                                ],
-                              ),
-                              child: SizedBox(
-                                height: getProportionateScreenHeight(51),
-                                width: SizeConfig.screenWidth! * 0.75,
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 10,
+                                    ),
+                                  ],
+                                ),
                                 child: TextField(
                                   controller: adminController.searchController,
                                   onChanged: (value) {
@@ -103,12 +106,16 @@ class ListUsersView extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              width: getProportionateScreenWidth(10),
+                            ),
                             Container(
-                              width: SizeConfig.screenWidth! * 0.12,
-                              height: getProportionateScreenHeight(50),
-                              // padding: EdgeInsets.symmetric(
-                              //     horizontal: getProportionateScreenWidth(
-                              //         getProportionateScreenWidth(8))),
+                              // width: getProportionateScreenWidth(30),
+                              padding: EdgeInsets.symmetric(
+                                  // horizontal: getProportionateScreenWidth(5),
+                                  ),
+
+                              height: getProportionateScreenHeight(55),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -124,6 +131,11 @@ class ListUsersView extends StatelessWidget {
                                 ],
                               ),
                               child: PopupMenuButton(
+                                icon: const Icon(
+                                  Icons.more_vert_rounded,
+                                  size: 20,
+                                  color: Colors.black45,
+                                ),
                                 onSelected: (val) {
                                   if (val == 0) {
                                     showDialog(
@@ -169,25 +181,67 @@ class ListUsersView extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: getProportionateScreenHeight(20),
+                          height: getProportionateScreenHeight(10),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(40),
+                          child: ListView.custom(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            childrenDelegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  if (adminController.role != index) {
+                                    adminController.role = index;
+                                    adminController.filterAttendances(
+                                        query: adminController.roles[index]);
+                                  }
+                                },
+                                child: Container(
+                                  // height: getProportionateScreenHeight(40),
+                                  padding: EdgeInsets.only(
+                                      right: getProportionateScreenWidth(10),
+                                      left: getProportionateScreenWidth(10)),
+
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.only(
+                                      right: getProportionateScreenWidth(10)),
+                                  decoration: BoxDecoration(
+                                    color: (adminController.role == index)
+                                        ? Colors.grey
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                      color: Colors.grey.shade200,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 4,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    '${adminController.roles[index]}',
+                                    style: TextStyle(
+                                      color: (adminController.role == index)
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }, childCount: adminController.roles.length),
+                          ),
                         ),
                         // ignore: unnecessary_null_comparison
                         (adminController.attendances != null)
                             ? SizedBox(
                                 height: SizeConfig.screenHeight! * 0.8,
-                                child:
-                                    //  ListView.builder(
-                                    //     itemCount: snapshot.data.length,
-                                    //     itemBuilder: (context, int index) {
-                                    //       if (snapshot.hasData) {
-                                    //         return CardAttendance(
-                                    //           attendance: snapshot.data[index],
-                                    //         );
-                                    //       } else {
-                                    //         return const EmptyContente();
-                                    //       }
-                                    //     }),
-                                    GroupedListView<Attendance, String>(
+                                child: GroupedListView<Attendance, String>(
+                                  shrinkWrap: true,
                                   elements: adminController.attendances!,
                                   groupBy: (element) => element.clockIn
                                       .toString()
@@ -307,6 +361,16 @@ class CardAttendance extends StatelessWidget {
                     // softWrap: false,
                     // overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w200),
+                  ),
+                  SizedBox(
+                    height: getProportionateScreenHeight(5),
+                  ),
+                  Text(
+                    attendance.role ?? '-------',
+                    // softWrap: false,
+                    // overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
                       fontSize: 14,
                     ),
                   ),
@@ -319,6 +383,7 @@ class CardAttendance extends StatelessWidget {
                   Icon(
                     CupertinoIcons.arrow_up_right_square,
                     color: Colors.green.shade200,
+                    size: 20,
                   ),
                   SizedBox(
                     height: getProportionateScreenHeight(5),
@@ -344,6 +409,7 @@ class CardAttendance extends StatelessWidget {
                   Icon(
                     CupertinoIcons.arrow_down_right_square,
                     color: Colors.orange.shade200,
+                    size: 20,
                   ),
                   SizedBox(
                     height: getProportionateScreenHeight(5),
@@ -368,6 +434,7 @@ class CardAttendance extends StatelessWidget {
                   const Icon(
                     CupertinoIcons.stopwatch,
                     color: Colors.black45,
+                    size: 20,
                   ),
                   SizedBox(
                     height: getProportionateScreenHeight(5),

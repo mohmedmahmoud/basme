@@ -1,14 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/data/service/plus/local_storage.dart';
-import 'package:mybim/logic/login_controller.dart';
-import 'package:mybim/pages/homepage/home.dart';
-import 'package:mybim/pages/homepage/homepage.dart';
-import 'package:mybim/pages/login/login.dart';
-import 'package:mybim/pages/super_user/lists_attendances.dart';
-import 'package:mybim/style/size_config.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/data/service/plus/local_storage.dart';
+import 'package:Basme/logic/login_controller.dart';
+import 'package:Basme/pages/homepage/home.dart';
+import 'package:Basme/pages/homepage/homepage.dart';
+import 'package:Basme/pages/login/login.dart';
+import 'package:Basme/pages/super_user/lists_attendances.dart';
+import 'package:Basme/style/size_config.dart';
 import 'dart:async';
 
 class Splash extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:mybim/data/model/user_model.dart';
-import 'package:mybim/logic/home_controller.dart';
-import 'package:mybim/pages/homepage/homepage.dart';
+import 'package:Basme/data/model/user_model.dart';
+import 'package:Basme/logic/home_controller.dart';
+import 'package:Basme/pages/homepage/homepage.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key, required this.userModel}) : super(key: key);

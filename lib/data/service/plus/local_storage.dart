@@ -11,7 +11,7 @@ class LocalStorage {
   }
 
   Future<String?> getIdAttendance() async {
-    return await GetStorage().read('idAttendance');
+    return GetStorage().read('idAttendance');
   }
 
   void deleteIdAttendance() {
