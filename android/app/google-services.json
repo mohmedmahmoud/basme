@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "467324606757",
+    "project_id": "abchir-47f81",
+    "storage_bucket": "abchir-47f81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467324606757:android:3b1f74d8d25ddeb6b3a2cc",
+        "android_client_info": {
+          "package_name": "com.example.abchir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467324606757-5cbddh9iuasd34piksn7huopq6gm3icf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.abchir",
+            "certificate_hash": "5968230f41c3c363c46dc902bac89d20c9137e68"
+          }
+        },
+        {
+          "client_id": "467324606757-n97mfd0odpn9g6hrin5g3b4jffc8mlhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl6dlVkLWbRlHXCDmu3CjR4yYG82Oh_Vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467324606757-n97mfd0odpn9g6hrin5g3b4jffc8mlhe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "467324606757-dpdbnd7nkqg5o2hq4g38gbg6ijking67.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.abchir"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
