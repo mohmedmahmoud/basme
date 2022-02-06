@@ -27,11 +27,13 @@ class FireStoreUser {
   }
 
 //  add user in admin
-  Future<String> addUser({required Map<String, dynamic> user}) =>
+  Future addUser({required Map<String, dynamic> user}) =>
       _userCollectionRef.add(user).then((value) {
         value.update({'id': value.id}).catchError((e) => print(e));
         return value.id;
-      }).catchError((e) => print(e));
+      }).catchError((e) {
+        print('----------------$e---------------');
+      });
 
   Future<void> addUserToFireStore(User userModel) async {
     return await _userCollectionRef

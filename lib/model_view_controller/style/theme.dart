@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData myTheme = ThemeData(
-  fontFamily: 'Roboto',
+  fontFamily: 'IBMPlexSansArabic',
   scaffoldBackgroundColor: whiteColor,
   primarySwatch: const MaterialColor(4280861781, {
     50: Color(0xffeafbef),

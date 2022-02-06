@@ -70,7 +70,7 @@ class AdminController extends GetxController {
   }
 
   addUser({required String role, required User userModel}) async {
-    loddingDialog(isPop: false);
+    loddingDialog(isPop: true);
     User user = User(
       createAt: DateTime.now(),
       updateAt: DateTime.now(),
@@ -82,14 +82,16 @@ class AdminController extends GetxController {
       longitudeAgency: userModel.longitudeAgency,
       timeWorking: timeWorkingInSeconds,
     );
-    String idUser =
+    dynamic idUser =
         await FireStoreUser().addUser(user: user.toJson()).catchError((e) {
       print(e.toString());
       errorSnackBar(message: 'Une erreur est survenue'.tr);
     });
+    Get.back();
     if (idUser != null) {
-      Get.back();
       dialogSucces(idUser: idUser);
+    } else {
+      errorSnackBar(message: 'Une erreur est survenue'.tr);
     }
   }
 
