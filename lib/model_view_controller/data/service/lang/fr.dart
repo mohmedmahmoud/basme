@@ -53,4 +53,7 @@ const Map<String, String> fr = {
   "Votre presence est enregistrer": "Votre presence est enregistrer",
   "Votre sortie est enregistrer": "Votre sortie est enregistrer",
   "tout": "tout",
+  'Technicien': 'Technicien',
+  'Devellopeur': 'Devellopeur',
+  'Autre': 'Autre',
 };

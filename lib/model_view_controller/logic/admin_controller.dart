@@ -16,17 +16,37 @@ class AdminController extends GetxController {
   List<Attendance>? attendances;
   List<Attendance> attendances2 = [];
   TextEditingController searchController = TextEditingController();
-  TimeOfDay? timeWorking = TimeOfDay(hour: 08, minute: 00);
+  TimeOfDay? timeWorking = const TimeOfDay(hour: 08, minute: 00);
   int? timeWorkingInSeconds = 28000;
   final List<String> _roles = [
+    'Chauffeur',
+    'Médecin',
+    'Opérateur',
+    'Infirmier',
+    'Technicien',
+    'Devellopeur',
+    'Autre',
+  ];
+  final List<String> _rolesFilter = [
     'tout',
     'Chauffeur',
     'Médecin',
     'Opérateur',
-    'Infirmier'
+    'Infirmier',
+    'Technicien',
+    'Devellopeur',
+    'Autre',
   ];
-  get roles => _roles;
-  int role = 0;
+  List<String> get roles => _roles;
+  List<String> get rolesFilter => _rolesFilter;
+  String role = 'Devellopeur';
+  int roleIndex = 0;
+
+  // change role
+  void changeRole(String role) {
+    this.role = role;
+    update();
+  }
 
   // filter search
   filterAttendances({required String query}) {
@@ -69,7 +89,7 @@ class AdminController extends GetxController {
     Get.offAll(() => const Login());
   }
 
-  addUser({required String role, required User userModel}) async {
+  addUser({required User userModel}) async {
     loddingDialog(isPop: true);
     User user = User(
       createAt: DateTime.now(),

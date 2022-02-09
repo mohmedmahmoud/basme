@@ -49,4 +49,7 @@ const Map<String, String> ar = {
   "Votre presence est enregistrer": "تم تسجيل حضورك",
   "Votre sortie est enregistrer": "تم تسجيل مغادرتك",
   "tout": "الكل",
+  'Technicien': 'فني',
+  'Devellopeur': 'مبرمج',
+  'Autre': 'Autre',
 };

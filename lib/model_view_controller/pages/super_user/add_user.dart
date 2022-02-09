@@ -15,13 +15,13 @@ class AddUserView extends StatefulWidget {
 }
 
 class _AddUserViewState extends State<AddUserView> {
-  String? _role = 'Opérateur';
-  final List<String> _roles = [
-    'Chauffeur',
-    'Médecin',
-    'Opérateur',
-    'Infirmier'
-  ];
+  // String? _role = 'Opérateur';
+  // final List<String> _roles = [
+  //   'Chauffeur',
+  //   'Médecin',
+  //   'Opérateur',
+  //   'Infirmier'
+  // ];
   AdminController adminController = Get.find();
 
   @override
@@ -139,18 +139,19 @@ class _AddUserViewState extends State<AddUserView> {
                                   }
                                   return null;
                                 },
-                                value: _role,
+                                value: adminController.role,
                                 hint: Text(
-                                  _role!.tr,
+                                  adminController.role.tr,
                                   style: TextStyle(
                                       fontSize:
                                           getProportionateScreenWidth(14)),
                                 ),
-                                items: _roles.map((String value) {
+                                items:
+                                    adminController.roles.map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(
-                                      value.tr,
+                                      value,
                                       style: TextStyle(
                                           fontSize:
                                               getProportionateScreenWidth(14)),
@@ -158,9 +159,7 @@ class _AddUserViewState extends State<AddUserView> {
                                   );
                                 }).toList(),
                                 onChanged: (value) {
-                                  setState(() {
-                                    _role = value;
-                                  });
+                                  adminController.changeRole(value!);
                                 },
                               ),
                             ),
@@ -237,7 +236,7 @@ class _AddUserViewState extends State<AddUserView> {
                               haveIcon: true,
                               onTap: () {
                                 adminController.addUser(
-                                    role: _role!, userModel: widget.userModel!);
+                                    userModel: widget.userModel!);
                               },
                               color: Theme.of(context).primaryColor,
                               textcolor: Colors.white,

@@ -198,10 +198,11 @@ class ListUsersView extends StatelessWidget {
                                 SliverChildBuilderDelegate((context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  if (adminController.role != index) {
-                                    adminController.role = index;
+                                  if (adminController.roleIndex != index) {
+                                    adminController.roleIndex = index;
                                     adminController.filterAttendances(
-                                        query: adminController.roles[index]);
+                                        query:
+                                            adminController.rolesFilter[index]);
                                   }
                                 },
                                 child: Container(
@@ -214,7 +215,7 @@ class ListUsersView extends StatelessWidget {
                                   margin: EdgeInsets.only(
                                       right: getProportionateScreenWidth(10)),
                                   decoration: BoxDecoration(
-                                    color: (adminController.role == index)
+                                    color: (adminController.roleIndex == index)
                                         ? Colors.grey
                                         : Colors.white,
                                     borderRadius: BorderRadius.circular(4),
@@ -230,16 +231,17 @@ class ListUsersView extends StatelessWidget {
                                     ],
                                   ),
                                   child: Text(
-                                    '${adminController.roles[index]}'.tr,
+                                    '${adminController.rolesFilter[index]}'.tr,
                                     style: TextStyle(
-                                      color: (adminController.role == index)
-                                          ? Colors.white
-                                          : Colors.grey,
+                                      color:
+                                          (adminController.roleIndex == index)
+                                              ? Colors.white
+                                              : Colors.grey,
                                     ),
                                   ),
                                 ),
                               );
-                            }, childCount: adminController.roles.length),
+                            }, childCount: adminController.rolesFilter.length),
                           ),
                         ),
                         // ignore: unnecessary_null_comparison
