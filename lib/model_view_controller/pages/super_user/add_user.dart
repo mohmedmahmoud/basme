@@ -141,20 +141,18 @@ class _AddUserViewState extends State<AddUserView> {
                                 },
                                 value: adminController.role,
                                 hint: Text(
-                                  adminController.role.tr,
+                                  "${adminController.role}".tr,
                                   style: TextStyle(
                                       fontSize:
-                                          getProportionateScreenWidth(14)),
+                                          getProportionateScreenWidth(10)),
                                 ),
                                 items:
                                     adminController.roles.map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(
-                                      value,
-                                      style: TextStyle(
-                                          fontSize:
-                                              getProportionateScreenWidth(14)),
+                                      value.tr,
+                                      style: const TextStyle(fontSize: 14),
                                     ),
                                   );
                                 }).toList(),

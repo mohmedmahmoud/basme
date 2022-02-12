@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>467324606757-dpdbnd7nkqg5o2hq4g38gbg6ijking67.apps.googleusercontent.com</string>
+	<string>851446290878-0kt74gkmhafvcevaaf5eco4msncfjs04.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.467324606757-dpdbnd7nkqg5o2hq4g38gbg6ijking67</string>
+	<string>com.googleusercontent.apps.851446290878-0kt74gkmhafvcevaaf5eco4msncfjs04</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>467324606757-5cbddh9iuasd34piksn7huopq6gm3icf.apps.googleusercontent.com</string>
+	<string>851446290878-22rfu50fiarbjnguptc6khruuacsvbqr.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAC1aMHUsJFEyXxRUQRQpSxMVfUhyfy4Gc</string>
+	<string>AIzaSyC2DmOdEMuCszz4iLHYx-8_BCyaMys6lIs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>467324606757</string>
+	<string>851446290878</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.abchir</string>
+	<string>com.selam.basma</string>
 	<key>PROJECT_ID</key>
-	<string>abchir-47f81</string>
+	<string>sp200200011004</string>
 	<key>STORAGE_BUCKET</key>
-	<string>abchir-47f81.appspot.com</string>
+	<string>sp200200011004.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:467324606757:ios:56856679c9966b6cb3a2cc</string>
+	<string>1:851446290878:ios:97220dc9bc89c7519cc1ef</string>
+	<key>DATABASE_URL</key>
+	<string>https://sp200200011004-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

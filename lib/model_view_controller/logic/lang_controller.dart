@@ -22,6 +22,8 @@ class LangController extends GetxController {
     if (lang == 'ar') {
       lang = 'ar';
       // update();
+    } else {
+      lang = 'fr';
     }
     super.onInit();
   }

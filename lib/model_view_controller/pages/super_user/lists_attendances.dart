@@ -111,7 +111,7 @@ class ListUsersView extends StatelessWidget {
                               width: getProportionateScreenWidth(10),
                             ),
                             Container(
-                              height: getProportionateScreenHeight(55),
+                              // height: getProportionateScreenHeight(55),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),

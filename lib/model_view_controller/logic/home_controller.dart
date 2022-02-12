@@ -38,7 +38,8 @@ class HomeController extends GetxController {
   // ---------------------------logout ----------
 
   void logout({required User user}) async {
-    if (_statusApp != 'clockIn') {
+    print("------------$_statusApp");
+    if (_statusApp == 'clockIn') {
       loddingDialog();
       LocalStorage().removeUser();
       LocalStorage().deleteIdAttendance();
@@ -75,7 +76,7 @@ class HomeController extends GetxController {
             _statusApp = 'clockOut';
           }
         } else {
-          _statusApp = 'clockIn';
+          // _statusApp = 'clockIn';
           print('atendance not found');
         }
         update();

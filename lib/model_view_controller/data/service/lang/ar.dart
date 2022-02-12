@@ -51,5 +51,5 @@ const Map<String, String> ar = {
   "tout": "الكل",
   'Technicien': 'فني',
   'Devellopeur': 'مبرمج',
-  'Autre': 'Autre',
+  'Autre': 'آخرى',
 };
