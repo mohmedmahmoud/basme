@@ -1,4 +1,4 @@
-package com.selam.besma
+package com.selam.basme
 
 import io.flutter.embedding.android.FlutterActivity
 

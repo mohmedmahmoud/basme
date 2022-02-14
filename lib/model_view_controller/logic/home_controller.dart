@@ -39,7 +39,7 @@ class HomeController extends GetxController {
 
   void logout({required User user}) async {
     print("------------$_statusApp");
-    if (_statusApp == 'clockIn') {
+    if (_statusApp != 'clockIn') {
       loddingDialog();
       LocalStorage().removeUser();
       LocalStorage().deleteIdAttendance();
@@ -98,6 +98,7 @@ class HomeController extends GetxController {
     LocationDivice locationDivice = LocationDivice();
     _locationData = await locationDivice.getLocation();
     print('locationData: $_locationData');
+
     bool inWorking = locationDivice.positionIsOk(
       latitude: locationData?.latitude,
       longitude: locationData?.longitude,
@@ -105,6 +106,21 @@ class HomeController extends GetxController {
       longitudeAgency: user.longitudeAgency,
     );
 
+    int counter = 2;
+    while (counter > 0) {
+      if (inWorking) {
+        break;
+      }
+      counter--;
+      _locationData = await locationDivice.getLocation();
+      print('locationData: $_locationData');
+      inWorking = locationDivice.positionIsOk(
+        latitude: locationData?.latitude,
+        longitude: locationData?.longitude,
+        latitudeAgency: user.latitudeAgency,
+        longitudeAgency: user.longitudeAgency,
+      );
+    }
     print(inWorking);
     if (inWorking) {
       DateTime startDate = await NTP.now();

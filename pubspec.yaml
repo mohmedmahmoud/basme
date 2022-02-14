@@ -63,7 +63,8 @@ dependencies:
   get_storage: ^2.0.3
 
   # divice info --deprect
-  device_info: ^2.0.3
+  # device_info: ^2.0.3
+  device_info_plus: ^3.2.1
   
   # location
   location: ^4.3.0

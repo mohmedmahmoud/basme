@@ -24,7 +24,9 @@ class LoginController extends GetxController {
 
   signIn({required String phone, required String password}) async {
     loddingDialog();
-    String? phoneId = await DiviceInfo().getDeviceInfo();
+    DiviceInfo diviceInfo = DiviceInfo();
+    String? phoneId = await diviceInfo.getDeviceInfo();
+
     FireStoreUser()
         .signIn(
       phone: phone,
@@ -34,7 +36,9 @@ class LoginController extends GetxController {
       if (users.docs.isNotEmpty) {
         users.docs.forEach((user) {
           User userModel = User.fromJson(user.data());
+          print(user.data());
           if (userModel.phoneId == phoneId) {
+            print('------------------------------');
             LocalStorage().setUser(userModel.toJsonForLocalStroge());
             Get.back();
             if (userModel.role == 'admin') {
@@ -50,6 +54,7 @@ class LoginController extends GetxController {
           } else {
             Get.back();
             errorSnackBar(message: 'telephone déja utilisé'.tr);
+            print(phoneId);
           }
         });
       } else {
