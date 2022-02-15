@@ -140,7 +140,10 @@ class HomeController extends GetxController {
       addAttendanceToFirebase(attendance: _attendance);
     } else {
       Get.back();
-      errorSnackBar(message: "vous n'etes pas dans la zone de travail".tr);
+      errorSnackBar(
+          message:
+              "Nous rencontrons des problèmes pour identifier votre position! , Veillez réessayer"
+                  .tr);
     }
   }
 

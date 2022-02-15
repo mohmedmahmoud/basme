@@ -48,8 +48,8 @@ const Map<String, String> fr = {
   "Chercher": "Chercher",
   "telephone déja utilisé": "telephone déja utilisé",
   "Ce code n'existe pas": "Ce code n'existe pas",
-  "vous n'etes pas dans la zone de travail":
-      "vous n'etes pas dans la zone de travail",
+  "Nous rencontrons des problèmes pour identifier votre position! , Veillez réessayer":
+      "Nous rencontrons des problèmes pour identifier votre position! , Veillez réessayer",
   "Votre presence est enregistrer": "Votre presence est enregistrer",
   "Votre sortie est enregistrer": "Votre sortie est enregistrer",
   "tout": "tout",

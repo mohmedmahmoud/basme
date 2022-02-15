@@ -45,7 +45,8 @@ const Map<String, String> ar = {
   "Chercher": "بحث",
   "telephone déja utilisé": "رقم الهاتف مستخدم مسبقا",
   "Ce code n'existe pas": "الكود غير موجود",
-  "vous n'etes pas dans la zone de travail": "أنت غير موجود في مكان العمل",
+  "Nous rencontrons des problèmes pour identifier votre position! , Veillez réessayer":
+      "نحن نواجه مشكلة في تحديد موقعك! ، حاول مرة اخرى",
   "Votre presence est enregistrer": "تم تسجيل حضورك",
   "Votre sortie est enregistrer": "تم تسجيل مغادرتك",
   "tout": "الكل",
