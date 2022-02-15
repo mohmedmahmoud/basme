@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:Basme/model_view_controller/pages/custum_widget/card_attendance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -244,38 +246,69 @@ class ListUsersView extends StatelessWidget {
                             }, childCount: adminController.rolesFilter.length),
                           ),
                         ),
-                        // ignore: unnecessary_null_comparison
-                        (adminController.attendances != null)
-                            ? SizedBox(
-                                height: SizeConfig.screenHeight! * 0.8,
-                                child: GroupedListView<Attendance, String>(
-                                  shrinkWrap: true,
-                                  elements: adminController.attendances!,
-                                  groupBy: (element) => element.clockIn
-                                      .toString()
-                                      .substring(0, 10),
-                                  groupSeparatorBuilder: (String value) =>
-                                      Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      value,
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                  itemBuilder: (context, Attendance element) =>
-                                      CardAttendance(
-                                    attendance: element,
-                                  ),
-                                  // itemComparator: (item1, item2) => item1['name'].compareTo(item2['name']), // optional
-                                  useStickyGroupSeparators: true, // optional
-                                  // floatingHeader: true, // optional
-                                  order: GroupedListOrder.DESC, // optional
+                        Stack(
+                          children: [
+                            Positioned(
+                              right: getProportionateScreenWidth(5),
+                              top: getProportionateScreenWidth(120),
+                              child: Container(
+                                width: getProportionateScreenWidth(45),
+                                height: getProportionateScreenWidth(45),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(
+                                      getProportionateScreenWidth(5)),
                                 ),
-                              )
-                            : const ShimmerWidget(),
+                              ),
+                            ),
+                            Positioned(
+                              left: getProportionateScreenWidth(5),
+                              top: getProportionateScreenWidth(240),
+                              child: Container(
+                                width: getProportionateScreenWidth(120),
+                                height: getProportionateScreenWidth(120),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(
+                                      getProportionateScreenWidth(10)),
+                                ),
+                              ),
+                            ),
+                            (adminController.attendances != null)
+                                ? SizedBox(
+                                    height: SizeConfig.screenHeight! * 0.8,
+                                    child: GroupedListView<Attendance, String>(
+                                      shrinkWrap: true,
+                                      elements: adminController.attendances!,
+                                      groupBy: (element) => element.clockIn
+                                          .toString()
+                                          .substring(0, 10),
+                                      groupSeparatorBuilder: (String value) =>
+                                          Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          value,
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      itemBuilder:
+                                          (context, Attendance element) =>
+                                              CardAttendance(
+                                        attendance: element,
+                                      ),
+                                      // itemComparator: (item1, item2) => item1['name'].compareTo(item2['name']), // optional
+                                      useStickyGroupSeparators:
+                                          true, // optional
+                                      // floatingHeader: true, // optional
+                                      order: GroupedListOrder.DESC, // optional
+                                    ),
+                                  )
+                                : const ShimmerWidget(),
+                          ],
+                        ),
                       ],
                     ),
                   ),

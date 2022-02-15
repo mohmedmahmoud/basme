@@ -44,7 +44,7 @@ class HomeController extends GetxController {
       LocalStorage().removeUser();
       LocalStorage().deleteIdAttendance();
 
-      Get.offAll(() => Login());
+      Get.offAll(() => const Login());
     } else {
       dynamic isOk = await stop(user: user);
       isOk is bool ? Get.offAll(() => Login()) : null;

@@ -21,30 +21,13 @@ class CardAttendance extends StatelessWidget {
         //   arguments: index,
         // );
       },
-      onLongPress: () {
-        // showDialog(
-        //   context: context,
-        //   builder: (context) {
-        //     return AlertDialogWidget(
-        //       contentText: "هل أنت متأكد أنك تريد حذف الميعاد ؟",
-        //       confirmFunction: () {
-        //         controller
-        //             .deleteMonthly(controller.monthly[index].id);
-        //         Get.back();
-        //       },
-        //       declineFunction: () {
-        //         Get.back();
-        //       },
-        //     );
-        //   },
-        // );
-      },
+      onLongPress: () {},
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           color: attendance.status ?? false
-              ? Colors.green[300]
-              : Colors.orange[300],
+              ? Colors.green[100]
+              : Colors.orange[100],
           boxShadow: const [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.05),
