@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:Basme/model_view_controller/logic/lang_controller.dart';
 import 'package:Basme/model_view_controller/style/size_config.dart';
 import 'package:flutter/material.dart';
@@ -297,116 +299,130 @@ class _LoginState extends State<Login> {
           image: AssetImage('assets/images/backgroud_1155.jpg'),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [
-                  Colors.white.withOpacity(0.9),
-                  Colors.white.withOpacity(0.7),
-                  Colors.white.withOpacity(0.6),
-                  Colors.white.withOpacity(0.5),
-                  Colors.white.withOpacity(0.2),
-                  Colors.white.withOpacity(0.05),
-                  Colors.white.withOpacity(0.015),
-                  Colors.white.withOpacity(0.001),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+            sigmaX: 1.5, sigmaY: 1.5, tileMode: TileMode.mirror),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(top: 40),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                // gradient: LinearGradient(
+                //   begin: Alignment.bottomCenter,
+                //   end: Alignment.topCenter,
+                //   colors: [
+                //     Colors.white.withOpacity(0.9),
+                //     Colors.white.withOpacity(0.7),
+                //     Colors.white.withOpacity(0.6),
+                //     Colors.white.withOpacity(0.5),
+                //     Colors.white.withOpacity(0.2),
+                //     Colors.white.withOpacity(0.05),
+                //     Colors.white.withOpacity(0.015),
+                //     Colors.white.withOpacity(0.001),
+                //   ],
+                // ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    spreadRadius: 5,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  // SizedBox(
+                  //   height: getProportionateScreenHeight(20),
+                  // ),
+                  Container(
+                    width: 100,
+                    // height: 30,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.white.withOpacity(0.9),
+                          Colors.white.withOpacity(0.7),
+                          Colors.white.withOpacity(0.6),
+                          Colors.white.withOpacity(0.5),
+                          Colors.white.withOpacity(0.2),
+                          Colors.white.withOpacity(0.05),
+                          Colors.white.withOpacity(0.015),
+                          Colors.white.withOpacity(0.001),
+                        ],
+                      ),
+                    ),
+                    child: GetBuilder<LangController>(
+                      init: LangController(),
+                      builder: (langController) {
+                        return DropdownButton<String>(
+                            isDense: true,
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: Colors.grey,
+                              size: 18,
+                            ),
+                            value: langController.lang,
+                            onChanged: (value) {
+                              langController.changeLang(value ?? 'fr');
+                            },
+                            underline: Container(
+                              color: Colors.white,
+                            ),
+                            items: const [
+                              DropdownMenuItem<String>(
+                                value: 'fr',
+                                child: Text(
+                                  'Francais',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                              DropdownMenuItem<String>(
+                                  value: 'ar',
+                                  child: Text(
+                                    'العربية',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ))
+                            ]);
+                      },
+                    ),
+                  ),
+                  SvgPicture.asset('assets/icons/logo.svg', height: 100),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                        color: const Color(0xff00C569),
+                        // border: Border.all(color: Colors.white60, width: 8),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Text(
+                      'BASME'.tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getProportionateScreenHeight(14),
+                          fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: getProportionateScreenHeight(50),
-                ),
-                Container(
-                  width: 100,
-                  height: 35,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.white.withOpacity(0.9),
-                        Colors.white.withOpacity(0.7),
-                        Colors.white.withOpacity(0.6),
-                        Colors.white.withOpacity(0.5),
-                        Colors.white.withOpacity(0.2),
-                        Colors.white.withOpacity(0.05),
-                        Colors.white.withOpacity(0.015),
-                        Colors.white.withOpacity(0.001),
-                      ],
-                    ),
-                  ),
-                  child: GetBuilder<LangController>(
-                    init: LangController(),
-                    builder: (langController) {
-                      return DropdownButton<String>(
-                          isDense: true,
-                          isExpanded: true,
-                          icon: const Icon(
-                            Icons.language_outlined,
-                            color: Colors.grey,
-                            size: 15,
-                          ),
-                          value: langController.lang,
-                          onChanged: (value) {
-                            langController.changeLang(value ?? 'fr');
-                          },
-                          underline: Container(
-                            color: Colors.white,
-                          ),
-                          items: const [
-                            DropdownMenuItem<String>(
-                              value: 'fr',
-                              child: Text(
-                                'Francais',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            DropdownMenuItem<String>(
-                                value: 'ar',
-                                child: Text(
-                                  'العربية',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ))
-                          ]);
-                    },
-                  ),
-                ),
-                SvgPicture.asset('assets/icons/logo.svg',
-                    height: getProportionateScreenHeight(125)),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  decoration: BoxDecoration(
-                      color: const Color(0xff00C569),
-                      // border: Border.all(color: Colors.white60, width: 8),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Text(
-                    'BASME'.tr,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: getProportionateScreenHeight(14),
-                        fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
