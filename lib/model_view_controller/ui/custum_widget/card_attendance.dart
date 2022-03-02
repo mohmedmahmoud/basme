@@ -1,5 +1,5 @@
 import 'package:Basme/model_view_controller/data/model/attendance.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

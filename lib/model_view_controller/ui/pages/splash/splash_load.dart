@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/data/service/local_storege/local_storage.dart';
 
-import 'package:Basme/model_view_controller/pages/homepage/home.dart';
+import 'package:Basme/model_view_controller/ui/pages/homepage/home.dart';
 
-import 'package:Basme/model_view_controller/pages/login/login.dart';
-import 'package:Basme/model_view_controller/pages/super_user/lists_attendances.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/pages/login/login.dart';
+import 'package:Basme/model_view_controller/ui/pages/super_user/lists_attendances.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
 import 'dart:async';
 
 class Splash extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SplashState extends State<Splash> {
       if (user != null) {
         User userModel = User.fromJsonForLocalStroge(user);
         if (userModel.role == 'admin') {
-          Get.to(() => ListUsersView(
+          Get.replace(() => ListUsersView(
                 userModel: userModel,
               ));
         } else {

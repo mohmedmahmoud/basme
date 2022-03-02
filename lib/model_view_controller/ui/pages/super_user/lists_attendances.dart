@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:Basme/model_view_controller/pages/custum_widget/card_attendance.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/card_attendance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,11 +9,11 @@ import 'package:Basme/model_view_controller/data/model/attendance.dart';
 import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/logic/admin_controller.dart';
 
-import 'package:Basme/model_view_controller/pages/custum_widget/loddingWidget.dart';
-import 'package:Basme/model_view_controller/pages/dialog/alertdialog_widget.dart';
-import 'package:Basme/model_view_controller/pages/super_user/add_user.dart';
-import 'package:Basme/model_view_controller/style/input_decoration.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/loddingWidget.dart';
+import 'package:Basme/model_view_controller/ui/dialog/alertdialog_widget.dart';
+import 'package:Basme/model_view_controller/ui/pages/super_user/add_user.dart';
+import 'package:Basme/model_view_controller/ui/style/input_decoration.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
 
 class ListUsersView extends StatelessWidget {
   ListUsersView({Key? key, required this.userModel}) : super(key: key);

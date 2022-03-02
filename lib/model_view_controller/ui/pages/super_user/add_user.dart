@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/logic/admin_controller.dart';
 
-import 'package:Basme/model_view_controller/pages/custum_widget/defaultbutton.dart';
-import 'package:Basme/model_view_controller/style/input_decoration.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/defaultbutton.dart';
+import 'package:Basme/model_view_controller/ui/style/input_decoration.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
 
 class AddUserView extends StatefulWidget {
   const AddUserView({Key? key, this.userModel}) : super(key: key);
@@ -141,7 +141,7 @@ class _AddUserViewState extends State<AddUserView> {
                                 },
                                 value: adminController.role,
                                 hint: Text(
-                                  "${adminController.role}".tr,
+                                  adminController.role.tr,
                                   style: TextStyle(
                                       fontSize:
                                           getProportionateScreenWidth(10)),

@@ -53,4 +53,7 @@ const Map<String, String> ar = {
   'Technicien': 'فني',
   'Devellopeur': 'مبرمج',
   'Autre': 'آخرى',
+  'Déconnecter avant terminer la session': 'سجل خروجك قبل إنهاء الجلسة',
+  'Erreur !': 'خطأ !',
+  'Réussi !': 'نجاح !',
 };

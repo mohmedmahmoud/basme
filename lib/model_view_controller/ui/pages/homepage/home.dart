@@ -1,10 +1,9 @@
 import 'package:Basme/model_view_controller/logic/home_controller.dart';
+import 'package:Basme/model_view_controller/ui/pages/homepage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:Basme/model_view_controller/data/model/user_model.dart';
-
-import 'package:Basme/model_view_controller/pages/homepage/homepage.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key, required this.userModel}) : super(key: key);

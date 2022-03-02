@@ -7,11 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/logic/home_controller.dart';
-import 'package:Basme/model_view_controller/pages/custum_widget/card_timer.dart';
-import 'package:Basme/model_view_controller/pages/custum_widget/defaultbutton.dart';
-import 'package:Basme/model_view_controller/pages/dialog/alertdialog_widget.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
-import 'package:Basme/model_view_controller/style/theme.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/card_timer.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/defaultbutton.dart';
+import 'package:Basme/model_view_controller/ui/dialog/alertdialog_widget.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/style/theme.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.userModel}) : super(key: key);
@@ -32,44 +32,6 @@ class _HomePageState extends State<HomePage> {
         init: HomeController(),
         builder: (homeController) {
           return Scaffold(
-            bottomNavigationBar: Container(
-              padding: const EdgeInsetsDirectional.all(20),
-              decoration: BoxDecoration(
-                borderRadius: (homeController.attendance.status ?? false)
-                    ? const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20))
-                    : null,
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.1),
-                    blurRadius: 6,
-                    spreadRadius: 3,
-                    offset: Offset(2.0, 2.0),
-                  )
-                ],
-                color: Colors.white,
-              ),
-              child: (homeController.attendance.status ?? false)
-                  ? Defaultbutton(
-                      text: 'Terminer'.tr,
-                      color: Colors.white10,
-                      haveBorder: true,
-                      textcolor: Colors.black54,
-                      onTap: () => homeController.stop(user: widget.userModel),
-                    )
-                  : Defaultbutton(
-                      text: 'Commancer'.tr,
-                      haveIcon: true,
-                      icon: Icons.power_settings_new_outlined,
-                      color: Theme.of(context).primaryColor,
-                      textcolor: Colors.white,
-                      onTap: () {
-                        homeController.start(user: widget.userModel);
-                        // _homeController.getAtendence(
-                        //     idUser: widget.userModel.id ?? '');
-                      }),
-            ),
             body: SafeArea(
               child: Stack(
                 children: [
@@ -206,9 +168,7 @@ class _HomePageState extends State<HomePage> {
                               child: Container(
                                 width: SizeConfig.screenWidth! * 0.12,
                                 height: getProportionateScreenHeight(50),
-                                // padding: EdgeInsets.symmetric(
-                                //     horizontal: getProportionateScreenWidth(
-                                //         getProportionateScreenWidth(8))),
+
                                 decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.9),
                                   borderRadius: BorderRadius.circular(4),
@@ -305,11 +265,16 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
                       ),
                       CircularCountDownTimer(
-                        duration: homeController.timeCircler,
+                        initialDuration:
+                            (homeController.attendance.status ?? false)
+                                ? homeController.getTimeWorking(
+                                    widget.userModel.timeWorking ?? 0)
+                                : 0,
+                        duration: widget.userModel.timeWorking ?? 28000,
 
                         controller: homeController.circularcontroller,
 
@@ -361,7 +326,9 @@ class _HomePageState extends State<HomePage> {
                         isTimerTextShown: true,
 
                         // Handles the timer start.
-                        autoStart: false,
+                        autoStart: (homeController.attendance.status ?? false)
+                            ? true
+                            : false,
 
                         // This Callback will execute when the Countdown Starts.
                         onStart: () {
@@ -377,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -400,15 +367,52 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
 
                       const Expanded(child: SizedBox()),
                     ],
                   ),
                 ],
               ),
+            ),
+
+            // this bottomNavigationBar
+
+            bottomNavigationBar: Container(
+              padding: const EdgeInsetsDirectional.all(20),
+              decoration: BoxDecoration(
+                borderRadius: (homeController.attendance.status ?? false)
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))
+                    : null,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    blurRadius: 6,
+                    spreadRadius: 3,
+                    offset: Offset(2.0, 2.0),
+                  )
+                ],
+                color: Colors.white,
+              ),
+              child: (homeController.attendance.status ?? false)
+                  ? Defaultbutton(
+                      text: 'Terminer'.tr,
+                      color: Colors.grey[200],
+                      textcolor: Colors.black,
+                      onTap: () => homeController.stop(user: widget.userModel),
+                    )
+                  : Defaultbutton(
+                      text: 'Commancer'.tr,
+                      haveIcon: true,
+                      icon: Icons.power_settings_new_outlined,
+                      color: Theme.of(context).primaryColor,
+                      textcolor: Colors.white,
+                      onTap: () {
+                        homeController.start(user: widget.userModel);
+                        // _homeController.getAtendence(
+                        //     idUser: widget.userModel.id ?? '');
+                      }),
             ),
           );
         });

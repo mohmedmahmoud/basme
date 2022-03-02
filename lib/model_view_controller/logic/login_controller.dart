@@ -6,12 +6,12 @@ import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/data/service/firebase/firestore_user.dart';
 import 'package:Basme/model_view_controller/data/service/divice_info/divice_info.dart';
 import 'package:Basme/model_view_controller/data/service/local_storege/local_storage.dart';
-import 'package:Basme/model_view_controller/pages/dialog/error.dart';
+import 'package:Basme/model_view_controller/ui/dialog/error.dart';
 
-import 'package:Basme/model_view_controller/pages/dialog/lodding.dart';
-import 'package:Basme/model_view_controller/pages/homepage/homepage.dart';
-import 'package:Basme/model_view_controller/pages/login/register.dart';
-import 'package:Basme/model_view_controller/pages/super_user/lists_attendances.dart';
+import 'package:Basme/model_view_controller/ui/dialog/lodding.dart';
+import 'package:Basme/model_view_controller/ui/pages/homepage/homepage.dart';
+import 'package:Basme/model_view_controller/ui/pages/login/register.dart';
+import 'package:Basme/model_view_controller/ui/pages/super_user/lists_attendances.dart';
 
 class LoginController extends GetxController {
   bool isSignUp = true;
@@ -109,10 +109,10 @@ class LoginController extends GetxController {
     // print('------${result.rawContent}------');
     // print('------${result.format}------');
 
-    codeAuthentification(code: result.rawContent);
+    authWithCode(code: result.rawContent);
   }
 
-  codeAuthentification({required String code}) async {
+  authWithCode({required String code}) async {
     loddingDialog();
 
     FireStoreUser().checkUserExist(id: code).then((user) {

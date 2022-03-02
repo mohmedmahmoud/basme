@@ -1,4 +1,4 @@
-import 'package:Basme/model_view_controller/pages/dialog/hour_dialog.dart';
+import 'package:Basme/model_view_controller/ui/dialog/hour_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Basme/model_view_controller/data/model/attendance.dart';
@@ -6,10 +6,10 @@ import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/data/service/firebase/firestore_atendance.dart';
 import 'package:Basme/model_view_controller/data/service/firebase/firestore_user.dart';
 import 'package:Basme/model_view_controller/data/service/local_storege/local_storage.dart';
-import 'package:Basme/model_view_controller/pages/dialog/error.dart';
-import 'package:Basme/model_view_controller/pages/dialog/lodding.dart';
-import 'package:Basme/model_view_controller/pages/dialog/succes.dart';
-import 'package:Basme/model_view_controller/pages/login/login.dart';
+import 'package:Basme/model_view_controller/ui/dialog/error.dart';
+import 'package:Basme/model_view_controller/ui/dialog/lodding.dart';
+import 'package:Basme/model_view_controller/ui/dialog/succes.dart';
+import 'package:Basme/model_view_controller/ui/pages/login/login.dart';
 
 class AdminController extends GetxController {
   // get attendances

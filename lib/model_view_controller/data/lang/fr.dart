@@ -56,4 +56,8 @@ const Map<String, String> fr = {
   'Technicien': 'Technicien',
   'Devellopeur': 'Devellopeur',
   'Autre': 'Autre',
+  'Déconnecter avant terminer la session':
+      'Déconnecter avant terminer la session',
+  'Erreur !': 'Erreur !',
+  'Réussi !': 'Réussi !',
 };

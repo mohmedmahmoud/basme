@@ -10,9 +10,9 @@ void loddingDialog({bool? isPop}) {
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(),
-          const SpinKitChasingDots(
+        children: const [
+          SizedBox(),
+          SpinKitChasingDots(
             color: Colors.white,
             size: 40.0,
           ),

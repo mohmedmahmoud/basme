@@ -35,11 +35,11 @@ class FireStoreUser {
         print('----------------$e---------------');
       });
 
-  Future<void> addUserToFireStore(User userModel) async {
-    return await _userCollectionRef
-        .doc(userModel.id)
-        .update(userModel.toJson());
-  }
+  // Future<void> addUserToFireStore(User userModel) async {
+  //   return await _userCollectionRef
+  //       .doc(userModel.id)
+  //       .update(userModel.toJson());
+  // }
 
   Future<void> updateUser({
     required User userModel,

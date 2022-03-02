@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:Basme/model_view_controller/logic/lang_controller.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,11 +9,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'package:Basme/model_view_controller/logic/login_controller.dart';
-import 'package:Basme/model_view_controller/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/defaultbutton.dart';
 
-import 'package:Basme/model_view_controller/style/input_decoration.dart';
+import 'package:Basme/model_view_controller/ui/style/input_decoration.dart';
 
-import 'package:Basme/model_view_controller/style/theme.dart';
+import 'package:Basme/model_view_controller/ui/style/theme.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Login extends StatefulWidget {
@@ -237,7 +237,7 @@ class _LoginState extends State<Login> {
                         onTap: () {
                           if (_formSignUp.currentState!.validate()) {
                             // Get.to(() => const Register());
-                            _loginController.codeAuthentification(
+                            _loginController.authWithCode(
                                 code: _codeController.text.trim());
                           }
                         },
@@ -257,7 +257,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: getProportionateScreenHeight(20),
+                  height: getProportionateScreenHeight(15),
                 ),
                 Text.rich(TextSpan(
                     text: 'En continuant, vous acceptez \n'.tr,

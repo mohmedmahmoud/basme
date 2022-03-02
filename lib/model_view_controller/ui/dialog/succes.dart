@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:Basme/model_view_controller/pages/custum_widget/defaultbutton.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/defaultbutton.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 void dialogSucces({required String idUser}) => Get.bottomSheet(
@@ -86,9 +86,26 @@ void dialogSucces({required String idUser}) => Get.bottomSheet(
 
 // ----------------Success snack bar ----------------------
 void successSnackBar({required String message}) {
-  Get.snackbar(message, '',
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.green,
-      borderRadius: 5,
-      colorText: Colors.white);
+  Get.snackbar(
+    '',
+    '',
+    snackPosition: SnackPosition.TOP,
+    backgroundColor: Colors.white,
+    titleText: Text(
+      ' ✔ ' + 'Réussi !'.tr,
+      style: const TextStyle(
+          color: Colors.green, letterSpacing: 1.5, fontWeight: FontWeight.bold),
+    ),
+    messageText: Text(message.tr,
+        style: const TextStyle(
+          color: Colors.green,
+        )),
+    colorText: Colors.white,
+    boxShadows: [
+      BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          offset: const Offset(1, 1),
+          blurRadius: 10)
+    ],
+  );
 }

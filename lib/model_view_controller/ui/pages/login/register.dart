@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/logic/login_controller.dart';
-import 'package:Basme/model_view_controller/pages/custum_widget/defaultbutton.dart';
-import 'package:Basme/model_view_controller/style/input_decoration.dart';
-import 'package:Basme/model_view_controller/style/size_config.dart';
+import 'package:Basme/model_view_controller/ui/custum_widget/defaultbutton.dart';
+import 'package:Basme/model_view_controller/ui/style/input_decoration.dart';
+import 'package:Basme/model_view_controller/ui/style/size_config.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key, this.userModel}) : super(key: key);
@@ -233,6 +233,10 @@ class _RegisterState extends State<Register> {
                                                     .userModel!.latitudeAgency,
                                                 longitudeAgency: widget
                                                     .userModel!.longitudeAgency,
+                                                createAt:
+                                                    widget.userModel!.createAt,
+                                                timeWorking: widget
+                                                    .userModel!.timeWorking,
                                                 updateAt: DateTime.now()));
                                       }
                                     },
