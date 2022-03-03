@@ -277,33 +277,41 @@ class ListUsersView extends StatelessWidget {
                             (adminController.attendances != null)
                                 ? SizedBox(
                                     height: SizeConfig.screenHeight! * 0.8,
-                                    child: GroupedListView<Attendance, String>(
-                                      shrinkWrap: true,
-                                      elements: adminController.attendances!,
-                                      groupBy: (element) => element.clockIn
-                                          .toString()
-                                          .substring(0, 10),
-                                      groupSeparatorBuilder: (String value) =>
-                                          Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          value,
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
+                                    child: RefreshIndicator(
+                                      onRefresh: () async {
+                                        adminController.getAttendances(
+                                            idAgency: userModel.idAgency ?? '');
+                                      },
+                                      child:
+                                          GroupedListView<Attendance, String>(
+                                        shrinkWrap: true,
+                                        elements: adminController.attendances!,
+                                        groupBy: (element) => element.clockIn
+                                            .toString()
+                                            .substring(0, 10),
+                                        groupSeparatorBuilder: (String value) =>
+                                            Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            value,
+                                            textAlign: TextAlign.start,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
+                                        itemBuilder:
+                                            (context, Attendance element) =>
+                                                CardAttendance(
+                                          attendance: element,
+                                        ),
+                                        // itemComparator: (item1, item2) => item1['name'].compareTo(item2['name']), // optional
+                                        useStickyGroupSeparators:
+                                            true, // optional
+                                        // floatingHeader: true, // optional
+                                        order:
+                                            GroupedListOrder.DESC, // optional
                                       ),
-                                      itemBuilder:
-                                          (context, Attendance element) =>
-                                              CardAttendance(
-                                        attendance: element,
-                                      ),
-                                      // itemComparator: (item1, item2) => item1['name'].compareTo(item2['name']), // optional
-                                      useStickyGroupSeparators:
-                                          true, // optional
-                                      // floatingHeader: true, // optional
-                                      order: GroupedListOrder.DESC, // optional
                                     ),
                                   )
                                 : const ShimmerWidget(),

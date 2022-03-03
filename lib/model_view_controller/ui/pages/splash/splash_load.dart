@@ -26,7 +26,7 @@ class _SplashState extends State<Splash> {
       if (user != null) {
         User userModel = User.fromJsonForLocalStroge(user);
         if (userModel.role == 'admin') {
-          Get.replace(() => ListUsersView(
+          Get.to(() => ListUsersView(
                 userModel: userModel,
               ));
         } else {

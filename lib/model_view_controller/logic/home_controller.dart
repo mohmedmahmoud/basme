@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -120,8 +122,7 @@ class HomeController extends GetxController {
           .onError((error, stackTrace) {
         print('error: $error');
         print('stackTrace: $stackTrace');
-        Get.back();
-        errorSnackBar(message: 'Une erreur est survenue'.tr);
+
         return DateTime.now();
       });
       timeCircler = user.timeWorking ?? 8 * 60 * 60;
@@ -195,11 +196,12 @@ class HomeController extends GetxController {
     if (inWorking) {
       _attendance.clockOut = await NTP
           .now(timeout: const Duration(seconds: 30))
-          .onError((error, stackTrace) {
+          .catchError((error, stackTrace) {
+        print('error: $error');
+      }).onError((error, stackTrace) {
         print('error: $error');
         print('stackTrace: $stackTrace');
-        Get.back();
-        errorSnackBar(message: 'Une erreur est survenue'.tr);
+
         return DateTime.now();
       });
 

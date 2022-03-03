@@ -98,9 +98,12 @@ class CardAttendance extends StatelessWidget {
                   SizedBox(
                     height: getProportionateScreenHeight(5),
                   ),
-                  Text(((attendance.clockIn != null)
-                      ? attendance.clockIn.toString().substring(10, 16)
-                      : '--:--')),
+                  Text(
+                    ((attendance.clockIn != null)
+                        ? attendance.clockIn.toString().substring(10, 16)
+                        : '--:--'),
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
               Container(
@@ -124,9 +127,11 @@ class CardAttendance extends StatelessWidget {
                   SizedBox(
                     height: getProportionateScreenHeight(5),
                   ),
-                  Text((attendance.clockOut != null)
-                      ? attendance.clockOut.toString().substring(10, 16)
-                      : '--:--'),
+                  Text(
+                      (attendance.clockOut != null)
+                          ? attendance.clockOut.toString().substring(10, 16)
+                          : '--:--',
+                      style: const TextStyle(fontSize: 12)),
                 ],
               ),
               Container(
@@ -149,9 +154,12 @@ class CardAttendance extends StatelessWidget {
                   SizedBox(
                     height: getProportionateScreenHeight(5),
                   ),
-                  Text(((attendance.duration != null)
-                      ? attendance.duration!.substring(0, 4)
-                      : '--:--')),
+                  Text(
+                    ((attendance.duration != null)
+                        ? attendance.duration!.substring(0, 4)
+                        : '--:--'),
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
             ],
