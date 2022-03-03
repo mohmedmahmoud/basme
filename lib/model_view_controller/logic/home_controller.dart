@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -7,10 +9,10 @@ import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/data/service/firebase/firestore_atendance.dart';
 import 'package:Basme/model_view_controller/data/service/local_storege/local_storage.dart';
 import 'package:Basme/model_view_controller/data/service/location/location.dart';
-import 'package:Basme/model_view_controller/pages/dialog/error.dart';
-import 'package:Basme/model_view_controller/pages/dialog/lodding.dart';
-import 'package:Basme/model_view_controller/pages/dialog/succes.dart';
-import 'package:Basme/model_view_controller/pages/login/login.dart';
+import 'package:Basme/model_view_controller/ui/dialog/error.dart';
+import 'package:Basme/model_view_controller/ui/dialog/lodding.dart';
+import 'package:Basme/model_view_controller/ui/dialog/succes.dart';
+import 'package:Basme/model_view_controller/ui/pages/login/login.dart';
 import 'package:ntp/ntp.dart';
 
 class HomeController extends GetxController {
@@ -38,15 +40,16 @@ class HomeController extends GetxController {
   // ---------------------------logout ----------
 
   void logout({required User user}) async {
+    print("------------$_statusApp");
+    loddingDialog();
     if (_statusApp != 'clockIn') {
-      loddingDialog();
       LocalStorage().removeUser();
       LocalStorage().deleteIdAttendance();
 
-      Get.offAll(() => Login());
+      Get.offAll(() => const Login());
     } else {
-      dynamic isOk = await stop(user: user);
-      isOk is bool ? Get.offAll(() => Login()) : null;
+      Get.back();
+      errorSnackBar(message: 'Déconnecter avant terminer la session'.tr);
     }
   }
 
@@ -55,6 +58,7 @@ class HomeController extends GetxController {
   void getAtendence({int? timeworking}) async {
     // loddingDialog(isPop: false);
     String? idAttendance = await LocalStorage().getIdAttendance();
+    print("idAttendance: -------------$idAttendance---------------------");
     if (idAttendance != null) {
       HomeFireStore()
           .getAtendance(idAttendance: idAttendance)
@@ -62,7 +66,6 @@ class HomeController extends GetxController {
         // Get.back();
 
         if (atendance.exists) {
-          print('atendance ${atendance.data()}');
           _attendance = Attendance.fromJson(atendance.data());
 
           if (_attendance.status ?? false) {
@@ -75,7 +78,7 @@ class HomeController extends GetxController {
             _statusApp = 'clockOut';
           }
         } else {
-          _statusApp = 'clockIn';
+          // _statusApp = 'clockIn';
           print('atendance not found');
         }
         update();
@@ -94,19 +97,34 @@ class HomeController extends GetxController {
 // -------------------------------start timer-----
   start({required User user}) async {
     loddingDialog();
-    LocationDivice locationDivice = LocationDivice();
-    _locationData = await locationDivice.getLocation();
-    print('locationData: $_locationData');
-    bool inWorking = locationDivice.positionIsOk(
-      latitude: locationData?.latitude,
-      longitude: locationData?.longitude,
-      latitudeAgency: user.latitudeAgency,
-      longitudeAgency: user.longitudeAgency,
-    );
 
+    bool inWorking = false;
+    int counter = 2;
+    while (counter > 0) {
+      counter--;
+      LocationDivice locationDivice = LocationDivice();
+      _locationData = await locationDivice.getLocation();
+      print('locationData: $_locationData');
+      inWorking = locationDivice.positionIsOk(
+        latitude: locationData?.latitude,
+        longitude: locationData?.longitude,
+        latitudeAgency: user.latitudeAgency,
+        longitudeAgency: user.longitudeAgency,
+      );
+      if (inWorking) {
+        break;
+      }
+    }
     print(inWorking);
     if (inWorking) {
-      DateTime startDate = await NTP.now();
+      DateTime startDate = await NTP
+          .now(timeout: const Duration(seconds: 30))
+          .onError((error, stackTrace) {
+        print('error: $error');
+        print('stackTrace: $stackTrace');
+
+        return DateTime.now();
+      });
       timeCircler = user.timeWorking ?? 8 * 60 * 60;
 
       _attendance = Attendance(
@@ -123,7 +141,10 @@ class HomeController extends GetxController {
       addAttendanceToFirebase(attendance: _attendance);
     } else {
       Get.back();
-      errorSnackBar(message: "vous n'etes pas dans la zone de travail".tr);
+      errorSnackBar(
+          message:
+              "Nous rencontrons des problèmes pour identifier votre position! , Veillez réessayer"
+                  .tr);
     }
   }
 
@@ -131,19 +152,17 @@ class HomeController extends GetxController {
     await HomeFireStore()
         .addAttendance(attendance: attendance.toJson())
         .then((attendanceData) {
-      if (attendanceData != null) {
-        LocalStorage().setIdAttendance(id: attendanceData.id);
-        circularcontroller.start();
-        Get.back();
-        _statusApp = 'clockIn';
-        update();
-        successSnackBar(message: 'Votre presence est enregistrer'.tr);
-      } else {
-        Get.back();
-        _attendance.status = false;
-        print('error in attendanceData');
-        errorSnackBar(message: 'Une erreur est survenue'.tr);
-      }
+      LocalStorage().setIdAttendance(id: attendanceData.id);
+      circularcontroller.start();
+      Get.back();
+      _statusApp = 'clockIn';
+      update();
+      successSnackBar(message: 'Votre presence est enregistrer'.tr);
+    }).timeout(const Duration(seconds: 30), onTimeout: () {
+      Get.back();
+      _attendance.status = false;
+      print('error in attendanceData');
+      errorSnackBar(message: 'Une erreur est survenue'.tr);
     }).catchError((e) {
       Get.back();
       _attendance.status = false;
@@ -155,19 +174,37 @@ class HomeController extends GetxController {
 // ---------------------------------stop timer-----
   stop({required User user}) async {
     loddingDialog();
-    LocationDivice locationDivice = LocationDivice();
-    _locationData = await locationDivice.getLocation();
 
-    bool inWorking = locationDivice.positionIsOk(
-      latitude: locationData!.latitude,
-      longitude: locationData!.longitude,
-      latitudeAgency: user.latitudeAgency,
-      longitudeAgency: user.longitudeAgency,
-    );
-
+    bool inWorking = false;
+    int counter = 2;
+    while (counter > 0) {
+      counter--;
+      LocationDivice locationDivice = LocationDivice();
+      _locationData = await locationDivice.getLocation();
+      print('locationData: $_locationData');
+      inWorking = locationDivice.positionIsOk(
+        latitude: locationData?.latitude,
+        longitude: locationData?.longitude,
+        latitudeAgency: user.latitudeAgency,
+        longitudeAgency: user.longitudeAgency,
+      );
+      if (inWorking) {
+        break;
+      }
+    }
     print(inWorking);
     if (inWorking) {
-      _attendance.clockOut = await NTP.now();
+      _attendance.clockOut = await NTP
+          .now(timeout: const Duration(seconds: 30))
+          .catchError((error, stackTrace) {
+        print('error: $error');
+      }).onError((error, stackTrace) {
+        print('error: $error');
+        print('stackTrace: $stackTrace');
+
+        return DateTime.now();
+      });
+
       _attendance.positionClockOut =
           GeoPoint(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
       Duration duration = _attendance.clockOut!
@@ -176,7 +213,7 @@ class HomeController extends GetxController {
       _attendance.status = false;
 
       updateAttendance(attendance: _attendance);
-      return true;
+      Get.back();
     } else {
       Get.back();
       errorSnackBar(message: 'vous n\'etes pas dans la zone de travail'.tr);
@@ -188,18 +225,30 @@ class HomeController extends GetxController {
 
     await HomeFireStore()
         .updateAttendance(
-            attendance: attendance.toJson(), idAttendance: id ?? '')
+      attendance: attendance.toJson(),
+      idAttendance: id ?? '',
+    )
         .then((value) {
-      Get.back();
       circularcontroller.pause();
       _statusApp = 'clockOut';
       successSnackBar(message: 'Votre sortie est enregistrer'.tr);
       update();
+    }).timeout(const Duration(seconds: 30), onTimeout: () {
+      _attendance.status = true;
+      print('error in attendanceData');
+      errorSnackBar(message: 'Une erreur est survenue'.tr);
     }).catchError((e) {
-      Get.back();
       _attendance.status = true;
       print(e.toString());
       errorSnackBar(message: 'Une erreur est survenue'.tr);
     });
+  }
+
+  // -----------------get time working -----------
+  int getTimeWorking(int timeWorking) {
+    Duration duration =
+        DateTime.now().difference(_attendance.clockIn ?? DateTime.now());
+    // circularcontroller.start();
+    return duration.inSeconds;
   }
 }

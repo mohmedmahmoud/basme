@@ -6,12 +6,12 @@ import 'package:Basme/model_view_controller/data/model/user_model.dart';
 import 'package:Basme/model_view_controller/data/service/firebase/firestore_user.dart';
 import 'package:Basme/model_view_controller/data/service/divice_info/divice_info.dart';
 import 'package:Basme/model_view_controller/data/service/local_storege/local_storage.dart';
-import 'package:Basme/model_view_controller/pages/dialog/error.dart';
+import 'package:Basme/model_view_controller/ui/dialog/error.dart';
 
-import 'package:Basme/model_view_controller/pages/dialog/lodding.dart';
-import 'package:Basme/model_view_controller/pages/homepage/homepage.dart';
-import 'package:Basme/model_view_controller/pages/login/register.dart';
-import 'package:Basme/model_view_controller/pages/super_user/lists_attendances.dart';
+import 'package:Basme/model_view_controller/ui/dialog/lodding.dart';
+import 'package:Basme/model_view_controller/ui/pages/homepage/homepage.dart';
+import 'package:Basme/model_view_controller/ui/pages/login/register.dart';
+import 'package:Basme/model_view_controller/ui/pages/super_user/lists_attendances.dart';
 
 class LoginController extends GetxController {
   bool isSignUp = true;
@@ -24,7 +24,9 @@ class LoginController extends GetxController {
 
   signIn({required String phone, required String password}) async {
     loddingDialog();
-    String? phoneId = await DiviceInfo().getDeviceInfo();
+    DiviceInfo diviceInfo = DiviceInfo();
+    String? phoneId = await diviceInfo.getDeviceInfo();
+
     FireStoreUser()
         .signIn(
       phone: phone,
@@ -34,7 +36,9 @@ class LoginController extends GetxController {
       if (users.docs.isNotEmpty) {
         users.docs.forEach((user) {
           User userModel = User.fromJson(user.data());
+          print(user.data());
           if (userModel.phoneId == phoneId) {
+            print('------------------------------');
             LocalStorage().setUser(userModel.toJsonForLocalStroge());
             Get.back();
             if (userModel.role == 'admin') {
@@ -50,6 +54,7 @@ class LoginController extends GetxController {
           } else {
             Get.back();
             errorSnackBar(message: 'telephone déja utilisé'.tr);
+            print(phoneId);
           }
         });
       } else {
@@ -104,10 +109,10 @@ class LoginController extends GetxController {
     // print('------${result.rawContent}------');
     // print('------${result.format}------');
 
-    codeAuthentification(code: result.rawContent);
+    authWithCode(code: result.rawContent);
   }
 
-  codeAuthentification({required String code}) async {
+  authWithCode({required String code}) async {
     loddingDialog();
 
     FireStoreUser().checkUserExist(id: code).then((user) {

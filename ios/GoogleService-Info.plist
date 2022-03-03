@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>851446290878-0kt74gkmhafvcevaaf5eco4msncfjs04.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.851446290878-0kt74gkmhafvcevaaf5eco4msncfjs04</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>851446290878-22rfu50fiarbjnguptc6khruuacsvbqr.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC2DmOdEMuCszz4iLHYx-8_BCyaMys6lIs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>851446290878</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.selam.basma</string>
+	<key>PROJECT_ID</key>
+	<string>sp200200011004</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sp200200011004.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:851446290878:ios:97220dc9bc89c7519cc1ef</string>
+	<key>DATABASE_URL</key>
+	<string>https://sp200200011004-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

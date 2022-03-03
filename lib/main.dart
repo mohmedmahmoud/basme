@@ -1,9 +1,9 @@
 // import 'package:device_preview/device_preview.dart' as dv;
 
-import 'package:Basme/model_view_controller/data/service/lang/traslation.dart';
+import 'package:Basme/model_view_controller/data/lang/traslation.dart';
 import 'package:Basme/model_view_controller/logic/binding.dart';
-import 'package:Basme/model_view_controller/pages/splash/splash_load.dart';
-import 'package:Basme/model_view_controller/style/theme.dart';
+import 'package:Basme/model_view_controller/ui/pages/splash/splash_load.dart';
+import 'package:Basme/model_view_controller/ui/style/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

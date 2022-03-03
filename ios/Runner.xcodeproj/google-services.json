@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:467324606757:android:3b1f74d8d25ddeb6b3a2cc",
         "android_client_info": {
-          "package_name": "com.example.abchir"
+          "package_name": "com.selam.basme"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "467324606757-5cbddh9iuasd34piksn7huopq6gm3icf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.abchir",
+            "package_name": "com.selam.basme",
             "certificate_hash": "5968230f41c3c363c46dc902bac89d20c9137e68"
           }
         },
